@@ -18,7 +18,7 @@ from nemo.core.config import hydra_runner
 from nemo.utils.exp_manager import exp_manager
 
 
-@hydra_runner(config_path="/raid/", config_name="quartznet_15x5.yaml")
+@hydra_runner(config_path="/raid", config_name="quartznet_15x5.yaml")
 def main(cfg):
     trainer = pl.Trainer(**cfg.trainer)
     exp_manager(trainer, cfg.get("exp_manager", None))
@@ -32,7 +32,7 @@ def main(cfg):
     # Point to the new validation data for fine-tuning
     asr_model.setup_validation_data(val_data_config=cfg.model.validation_ds)
     trainer.fit(asr_model)
-    asr_model.save_to(save_path="/result/QuartzNet15x5.nemo")
+    asr_model.save_to(save_path="QuartzNet15x5.nemo")
 
 
 if __name__ == '__main__':
